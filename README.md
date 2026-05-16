@@ -44,7 +44,17 @@ the Redshift view layer.
 - IaC: Terraform modules for the whole stack
 - Orchestration: EventBridge → Lambda trigger included
 
-## Quick start (local with LocalStack)
+## Quick start (zero infrastructure)
+
+```bash
+pip install faker pandas pyarrow
+python generator/generate_claims.py --rows 5000
+python demo.py
+```
+
+Expected output: partitioned Parquet under `data/lake/claims/state=GA/loss_year=2025/...`, a masked analytics view under `data/gold/`, and a summary showing first_name = "REDACTED" and a 64-char SSN hash.
+
+## AWS-flavored run (LocalStack or real AWS)
 
 ```bash
 docker compose -f iac/docker-compose.localstack.yml up -d
